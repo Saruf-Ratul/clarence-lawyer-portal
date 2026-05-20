@@ -9,6 +9,8 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IPropertyService, PropertyService>();
 builder.Services.AddScoped<ICaseService, CaseService>();
 builder.Services.AddScoped<IRentManagerInboxService, RentManagerInboxService>();
+builder.Services.AddScoped<IRentManagerSyncService, RentManagerSyncService>();
+builder.Services.AddScoped<IFormService, FormService>();
 
 var app = builder.Build();
 app.UseSwagger();
@@ -34,6 +36,12 @@ app.MapPost("/api/rm-inbox/accept", async (AcceptSubmissionRequest request, IRen
 {
     var result = await service.AcceptAsync(request, ct);
     return result is null ? Results.BadRequest(new { message = "Submission not found or already accepted" }) : Results.Ok(result);
+});
+app.MapPost("/api/rm-sync/pull", async (RmImportRequest request, IRentManagerSyncService service, CancellationToken ct) => Results.Ok(await service.PullLatestAsync(request, ct)));
+app.MapGet("/api/cases/{caseId:guid}/forms/nj-lt", async (Guid caseId, IFormService service, CancellationToken ct) =>
+{
+    var form = await service.BuildNjLtFormAsync(caseId, ct);
+    return form is null ? Results.NotFound() : Results.Ok(form);
 });
 
 app.Run();

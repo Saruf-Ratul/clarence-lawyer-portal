@@ -45,3 +45,13 @@ npm run dev
 ```
 
 > Note: If you run frontend separately, set up a dev proxy or serve through the same host so `/api/*` resolves to backend.
+
+
+## Rent Manager data pull and NJ form mapping
+- Endpoint `POST /api/rm-sync/pull` triggers RM import service (currently mock import; real RM API credentials and endpoint config required).
+- Imported RM submissions appear in `GET /api/rm-inbox`.
+- Accepting submissions creates legal cases via `POST /api/rm-inbox/accept`.
+- Generated NJ form data is available at `GET /api/cases/{caseId}/forms/nj-lt`.
+
+## Full SQL database
+- Full SQL Server schema is included at `database/clarence_full_schema.sql`.
