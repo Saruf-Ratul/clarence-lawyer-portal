@@ -1,16 +1,35 @@
 # Clarence Lawyer Portal
 
-Monorepo scaffold for a Rent Manager-integrated landlord-tenant case management system.
+Attorney-first landlord-tenant case management platform integrated with Rent Manager.
 
-## Structure
-- `backend/Clarence.Api` - ASP.NET Core Web API host
-- `backend/Clarence.Application` - Application layer (use-cases/contracts)
-- `backend/Clarence.Domain` - Domain entities and enums
-- `backend/Clarence.Infrastructure` - Persistence/integrations
-- `frontend/clarence-web` - React + TypeScript frontend
-- `docs` - Product docs and requirements
+## What is implemented now (module-by-module scaffold)
+- Backend API modules:
+  - Dashboard KPIs
+  - Clients
+  - Properties (by client)
+  - Cases (list/detail/status update)
+  - Rent Manager Intake Inbox (list + accept case)
+- Frontend modules/pages:
+  - Dashboard
+  - RM Intake Inbox
+  - Clients
+  - Properties
+  - Cases
+  - Case Detail
+  - Forms & Filings (scaffold)
+  - Reports (scaffold)
+  - Settings (scaffold)
 
-## Quick start
+## Project structure
+- `backend/Clarence.Api` - API host and route mappings
+- `backend/Clarence.Application` - DTOs and service contracts
+- `backend/Clarence.Domain` - core entities and enums
+- `backend/Clarence.Infrastructure` - in-memory store + services
+- `frontend/clarence-web` - React TypeScript single-page app
+- `docs/BRS.md` - business requirements
+- `docs/SRS.md` - system requirements starter
+
+## Run
 ### Backend
 ```bash
 cd backend/Clarence.Api
@@ -24,3 +43,5 @@ cd frontend/clarence-web
 npm install
 npm run dev
 ```
+
+> Note: If you run frontend separately, set up a dev proxy or serve through the same host so `/api/*` resolves to backend.
